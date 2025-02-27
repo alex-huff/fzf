@@ -26,7 +26,7 @@ const (
 	previewCancelWait = 500 * time.Millisecond
 	previewChunkDelay = 100 * time.Millisecond
 	previewDelayed    = 500 * time.Millisecond
-	maxPatternLength  = 1000
+	maxPatternLength  = 100_000
 	maxMulti          = math.MaxInt32
 
 	// Background processes
