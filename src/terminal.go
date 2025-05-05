@@ -3976,14 +3976,15 @@ func (t *Terminal) printItem(result Result, line int, maxLine int, index int, cu
 	alt := false
 	altBg := t.theme.AltBg
 	selectedBg := selected && t.theme.SelectedBg != t.theme.ListBg
+	filteredIdx := t.merger.FindIndex(item.Index())
 	if t.jumping != jumpDisabled {
 		if index < len(t.jumpLabels) {
 			// Striped
 			if !altBg.IsColorDefined() {
 				altBg = t.theme.DarkBg
-				alt = index%2 == 0
+				alt = filteredIdx%2 == 0
 			} else {
-				alt = index%2 == 1
+				alt = filteredIdx%2 == 1
 			}
 			label = t.jumpLabels[index:index+1] + strings.Repeat(" ", max(0, t.pointerLen-1))
 			if t.pointerLen == 0 {
@@ -3994,7 +3995,7 @@ func (t *Terminal) printItem(result Result, line int, maxLine int, index int, cu
 		if current {
 			label = t.pointer
 		}
-		alt = !selectedBg && altBg.IsColorDefined() && index%2 == 1
+		alt = !selectedBg && altBg.IsColorDefined() && filteredIdx%2 == 1
 	}
 
 	// Avoid unnecessary redraw
